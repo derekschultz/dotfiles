@@ -6,6 +6,11 @@ let mapleader=','
 set nocompatible              " choose no compatibility with legacy vi
 filetype plugin indent on     " load filetype plugins + indentation
 
+"" File type specific settings
+autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
+autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
+
 "" Whitespace
 set nowrap                    " don't wrap lines
 set tabstop=2 shiftwidth=2    " a tab is two spaces
