@@ -1,8 +1,19 @@
 export ZSH=$HOME/.oh-my-zsh
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-ZSH_THEME="risto"
+ZSH_THEME="agnoster"
 plugins=(brew chruby docker git ruby tmux)
 source $ZSH/oh-my-zsh.sh
+
+## TODO: move to function
+if [[ $(docker-machine status dev) == "Stopped" ]]; then
+  echo "Starting docker-machine..."
+  docker-machine start dev && docker-machine status dev
+  sleep 3
+  eval $(docker-machine env dev)
+else
+  eval $(docker-machine env dev)
+fi
+
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -38,3 +49,4 @@ alias cdpro='cd ~/projects'
 alias gocode='cd ~/go/src/'
 alias gl='git log --graph --abbrev-commit --pretty=oneline --decorate'
 alias gs='git status'
+alias squash='git fetch origin && git rebase -i HEAD~`git cherry -v origin/master | wc -l | tr -d " "`'
