@@ -1,35 +1,16 @@
 export ZSH=$HOME/.oh-my-zsh
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 ZSH_THEME="agnoster"
-plugins=(brew chruby docker git ruby tmux)
+plugins=(git tmux zsh-completion)
 source $ZSH/oh-my-zsh.sh
-
-## TODO: move to function
-if [[ $(docker-machine status dev) == "Stopped" ]]; then
-  echo "Starting docker-machine..."
-  docker-machine start dev && docker-machine status dev
-  sleep 3
-  eval $(docker-machine env dev)
-else
-  eval $(docker-machine env dev)
-fi
-
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
-# User configuration
-export PATH="$PATH:$HOME/opt/terraform"
-
 # Set default editor
 export EDITOR='vim'
 export VISUAL=$EDITOR
-
-# chruby setup
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
-chruby ruby-2.1.3
 
 # Go
 export GOPATH="$HOME/go"
